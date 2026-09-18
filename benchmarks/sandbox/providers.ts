@@ -166,7 +166,8 @@ export const providers: ProviderConfig[] = [
     name: 'microsandbox',
     requiredEnvVars: ['MSB_API_KEY'],
     createCompute: () => microsandbox({ apiKey: process.env.MSB_API_KEY! }),
-    sandboxOptions: { image: 'node:22' },
+    // Delete on stop, with a 15-minute lifetime backstop if cleanup cannot run.
+    sandboxOptions: { image: 'node:22', ephemeral: true, timeout: 900_000 },
   },
   {
     name: 'miosa',
